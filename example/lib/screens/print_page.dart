@@ -565,7 +565,7 @@ class _PrintPageState extends State<PrintPage>
                                       _connected ? Colors.red : Colors.green),
                               onPressed: connect(_device.macAdress) ? _disconnect : connect(_device.macAdress) ,
                               child: Text(
-                               connect(_device.macAdress) ? 'Disconnect' : 'Connect',
+                               connect(_device) ? 'Disconnect' : 'Connect',
                                 style: const TextStyle(color: Colors.white),
                               ),
                             ),
