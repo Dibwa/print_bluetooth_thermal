@@ -9,7 +9,7 @@ class Transaction_list_Tile extends StatelessWidget {
   final sync;
   final Function()? showList;
   const Transaction_list_Tile(
-      {super.key,
+      {
       required this.showList,
       required this.invoiceId,
       required this.total,

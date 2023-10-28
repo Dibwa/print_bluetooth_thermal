@@ -14,7 +14,7 @@ class Shop_Grid_Tile extends StatefulWidget {
   final Function()? add_to_cart;
 
   const Shop_Grid_Tile({
-    super.key,
+  
     required this.add_to_cart,
     required this.image,
     required this.sizesAvailable,

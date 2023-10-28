@@ -24,7 +24,7 @@ class ProfilePage extends StatefulWidget {
   final String business_Id;
   final String phoneNumber;
   const ProfilePage(
-      {super.key,
+      {
       required this.firstName,
       required this.lastName,
       required this.token,

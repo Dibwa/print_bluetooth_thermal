@@ -5,7 +5,7 @@ import 'bar_data.dart';
 
 class MybarGraph extends StatelessWidget {
   final List weeklySummary;
-  const MybarGraph({super.key, required this.weeklySummary});
+  const MybarGraph({required this.weeklySummary});
 
   @override
   Widget build(BuildContext context) {

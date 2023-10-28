@@ -7,7 +7,7 @@ class Bill_Info extends StatelessWidget {
   final int price;
   final int quantity;
   const Bill_Info(
-      {super.key,
+      {
       required this.specification,
       required this.price,
       required this.quantity});

@@ -5,7 +5,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get_connect/connect.dart';
 import 'package:qr_flutter/qr_flutter.dart';
-import 'package:shop_manager/components/transaction_button.dart';
+import 'transaction_button.dart';
 import 'dart:convert';
 import 'my_textfied.dart';
 
@@ -17,7 +17,7 @@ class Bottom_sheet extends StatefulWidget {
   final String phoneNumber;
   final invoice_data;
   Bottom_sheet({
-    super.key,
+
     required this.firstName,
     required this.lastName,
     required this.token,

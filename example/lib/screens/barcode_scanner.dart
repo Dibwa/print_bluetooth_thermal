@@ -18,7 +18,7 @@ class BarcodePage extends StatefulWidget {
 
   final String phoneNumber;
   BarcodePage({
-    super.key,
+    
     required this.firstName,
     required this.lastName,
     required this.token,

@@ -22,7 +22,7 @@ class Wallet extends StatefulWidget {
   double creditScore;
   int creditLimit;
   Wallet({
-    super.key,
+ 
     required this.firstName,
     required this.lastName,
     required this.token,

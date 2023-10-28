@@ -16,7 +16,7 @@ class Analytics_Page extends StatefulWidget {
   final String token;
   final String phoneNumber;
   const Analytics_Page({
-    super.key,
+    
     required this.firstName,
     required this.lastName,
     required this.token,

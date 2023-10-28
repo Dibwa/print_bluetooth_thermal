@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_connect/connect.dart';
-import 'package:shop_manager/screens/product_list_page.dart';
-import 'package:shop_manager/screens/request_approval_list.dart';
+import 'product_list_page.dart';
+import 'request_approval_list.dart';
 import '../login_signup_page.dart';
 import 'analytics.dart';
 import 'first_login.dart';
@@ -74,7 +74,7 @@ class HomePage extends StatefulWidget {
   int creditLimit;
   final String phoneNumber;
   HomePage(
-      {super.key,
+      {
       required this.firstName,
       required this.lastName,
       required this.token,

@@ -7,7 +7,7 @@ class Loan_Tile extends StatelessWidget {
   final Function()? buttonFunction;
 
   const Loan_Tile(
-      {super.key,
+      {
       required this.loanAmount,
       required this.pay_date_days_remaining,
       required this.buttonFunction, required loanStatus});

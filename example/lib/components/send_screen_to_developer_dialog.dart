@@ -6,7 +6,7 @@ class Customer_Support extends StatelessWidget {
   final Function()? send_message_to_support_team;
   final Function()? url_direct;
   const Customer_Support({
-    super.key,
+ 
     required this.send_message_to_support_team,
     required this.url_direct,
   });

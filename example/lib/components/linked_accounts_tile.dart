@@ -7,7 +7,7 @@ class Linked_Account_Tile extends StatelessWidget {
   final Function()? buttonFunction;
 
   const Linked_Account_Tile(
-      {super.key,
+      {
   
       required this.accountphoneNumber,
       required this.buttonFunction});

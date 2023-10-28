@@ -6,7 +6,7 @@ import './invoice_product_tile.dart';
 class Dialog_Box_Product_List extends StatefulWidget {
   var product_list;
 
-  Dialog_Box_Product_List({super.key, required this.product_list});
+  Dialog_Box_Product_List({ required this.product_list});
 
   @override
   State<Dialog_Box_Product_List> createState() =>

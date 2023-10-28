@@ -16,7 +16,7 @@ class Request_Approval_List_Page extends StatefulWidget {
   String token;
   String phoneNumber;
   Request_Approval_List_Page({
-    super.key,
+
     required this.firstName,
     required this.lastName,
     required this.token,

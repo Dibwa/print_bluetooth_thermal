@@ -5,7 +5,7 @@ class CheckoutTile extends StatefulWidget {
   final String phoneNumber;
 
   const CheckoutTile({
-    super.key,
+
     required this.firstName,
     required this.phoneNumber,
   });

@@ -10,7 +10,7 @@ class DialogBox extends StatelessWidget {
   TextEditingController product_quantity;
   final Function()? buttonFunction;
   DialogBox(
-      {super.key,
+      {
       required this.product_quantity,
       required this.buttonFunction,
       required this.product_name,

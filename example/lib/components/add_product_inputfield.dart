@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class ProductInputField extends StatefulWidget {
   String hintText;
 
- ProductInputField({super.key, required this.hintText,});
+ ProductInputField({ required this.hintText,});
 
   @override
   State<ProductInputField> createState() => _ProductInputFieldState();

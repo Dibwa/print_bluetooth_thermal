@@ -6,7 +6,7 @@ class AirtimePurchase extends StatefulWidget {
   bool ischecked = false;
   VoidCallback check;
 
-  AirtimePurchase({super.key, required this.ischecked, required this.check});
+  AirtimePurchase({required this.ischecked, required this.check});
 
   @override
   State<AirtimePurchase> createState() => _AirtimePurchaseState();

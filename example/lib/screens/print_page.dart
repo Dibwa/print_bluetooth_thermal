@@ -27,7 +27,7 @@ class PrintPage extends StatefulWidget {
   final String phoneNumber;
 
   PrintPage({
-    super.key,
+
     required this.firstName,
     required this.lastName,
     required this.token,

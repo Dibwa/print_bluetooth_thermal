@@ -10,7 +10,7 @@ class ProductTile extends StatefulWidget {
   final Function()? function;
 
   const ProductTile({
-    super.key,
+
     required this.function,
     required this.productName,
     required this.productPrice,

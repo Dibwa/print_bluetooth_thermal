@@ -8,7 +8,7 @@ class Shop_list_Tile extends StatefulWidget {
   final String phoneNumber;
 
   const Shop_list_Tile({
-    super.key,
+ 
     required this.shopName,
     required this.shopId,
     required this.phoneNumber,

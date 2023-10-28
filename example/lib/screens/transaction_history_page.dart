@@ -19,7 +19,7 @@ class Transaction_List_Page extends StatefulWidget {
   final String token;
   final String phoneNumber;
   const Transaction_List_Page({
-    super.key,
+ 
     required this.firstName,
     required this.lastName,
     required this.token,

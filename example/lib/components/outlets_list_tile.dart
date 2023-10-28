@@ -9,7 +9,7 @@ class OutletTile extends StatelessWidget {
 
   final int productUnit;
   const OutletTile(
-      {super.key,
+      {
       required this.productName,
       required this.productAmount,
       required this.productUnit,

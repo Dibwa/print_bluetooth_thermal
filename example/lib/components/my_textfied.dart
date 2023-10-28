@@ -8,7 +8,7 @@ class InputField extends StatelessWidget {
   final TextInputType keyboarType;
   final Function(String value) onchanged;
   const InputField(
-      {super.key,
+      {
       required this.textHint,
       required this.secure,
       required this.inputs,

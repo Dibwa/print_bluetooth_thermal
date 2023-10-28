@@ -10,7 +10,7 @@ class Add_To_Cart extends StatelessWidget {
   var specification;
   final Function()? add_to_cart;
   Add_To_Cart(
-      {super.key, required this.specification, required this.add_to_cart});
+      { required this.specification, required this.add_to_cart});
 
   @override
   Widget build(BuildContext context) {

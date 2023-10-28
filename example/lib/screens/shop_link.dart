@@ -11,7 +11,7 @@ import 'enlisted_shops_in_system.dart';
 class Shop_Link_Page extends StatefulWidget {
   final String token;
   final String phoneNumber;
-  Shop_Link_Page({super.key, required this.token, required this.phoneNumber});
+  Shop_Link_Page({ required this.token, required this.phoneNumber});
 
   @override
   Shop_Link_PageState createState() => Shop_Link_PageState();

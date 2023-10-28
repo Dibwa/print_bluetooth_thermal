@@ -8,7 +8,7 @@ class MyButton extends StatefulWidget {
 
   final Function()? buttonFunction;
   MyButton(
-      {super.key,
+      {
       required this.lable,
       required this.buttonFunction,
       required this.isLoading, required this.buttoncolor});

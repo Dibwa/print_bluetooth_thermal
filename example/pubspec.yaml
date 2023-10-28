@@ -54,6 +54,7 @@ dependencies:
   fluttertoast: ^8.2.2
   dio: ^5.3.2
   file_picker: ^5.3.3
+  print_bluetooth_thermal: ^1.0.9
 dev_dependencies:
   flutter_test:
     sdk: flutter

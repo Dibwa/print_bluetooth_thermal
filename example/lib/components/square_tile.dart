@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class SquareTile extends StatefulWidget {
    String pictureUrl;
 
-  SquareTile({super.key, required this.pictureUrl});
+  SquareTile({ required this.pictureUrl});
 
   @override
   State<SquareTile> createState() => _SquareTileState();

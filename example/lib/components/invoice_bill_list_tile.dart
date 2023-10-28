@@ -8,7 +8,7 @@ class Invoice_Bill_Tile extends StatelessWidget {
 
   final int productUnit;
   const Invoice_Bill_Tile(
-      {super.key,
+      {
       required this.productName,
       required this.productAmount,
       required this.productUnit,

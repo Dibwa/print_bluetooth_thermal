@@ -10,8 +10,7 @@ class Transaction_Button extends StatefulWidget {
 
   final Function()? buttonFunction;
   Transaction_Button(
-      {super.key,
-      required this.lable,
+      {required this.lable,
       required this.buttonFunction,
       required this.countDown,
       required this.isLoading,

@@ -27,7 +27,7 @@ class Edit_BarcodePage extends StatefulWidget {
   String price;
   String stockQuantity;
   Edit_BarcodePage({
-    super.key,
+    
     required this.index,
     required this.productName,
     required this.productMetric,

@@ -8,8 +8,7 @@ class Invoice_Product_Tile extends StatelessWidget {
   final int subTotal;
 
   const Invoice_Product_Tile({
-    super.key,
-    required this.productName,
+     required this.productName,
     required this.subTotal,
     required this.quantity,
   });

@@ -13,7 +13,7 @@ class Shop_List_Page extends StatefulWidget {
   final String phoneNumber;
   final String token;
   Shop_List_Page({
-    super.key,
+    
     required this.phoneNumber,
     required this.token,
   });

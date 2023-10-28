@@ -9,7 +9,7 @@ class Request_list_Tile extends StatefulWidget {
   Color loadingColor;
   final Function()? approve_request;
   Request_list_Tile(
-      {super.key,
+      {
       required this.shopId,
       required this.phoneNumber,
    required this.loadingColor,

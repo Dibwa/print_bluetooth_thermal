@@ -10,7 +10,7 @@ class Invoice_Payment_DialogBox extends StatelessWidget {
   var invoiceData;
 
   Invoice_Payment_DialogBox(
-      {super.key, required this.invoiceId, required this.invoiceData});
+      { required this.invoiceId, required this.invoiceData});
 
   @override
   Widget build(BuildContext context) {

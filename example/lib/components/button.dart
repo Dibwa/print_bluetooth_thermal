@@ -7,7 +7,7 @@ class MyButton extends StatefulWidget {
   
   final Function()? function;
   MyButton(
-      {super.key,
+      {
       required this.lable,
       required this.function,
       required this.isLoading, this.buttoncolor = Colors.black});

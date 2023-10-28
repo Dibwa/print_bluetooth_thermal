@@ -9,7 +9,7 @@ class BillTile extends StatelessWidget {
 
   final int productUnit;
   const BillTile(
-      {super.key,
+      {
       required this.productName,
       required this.productAmount,
       required this.productUnit,
