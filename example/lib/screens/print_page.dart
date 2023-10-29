@@ -264,8 +264,8 @@ class _PrintPageState extends State<PrintPage>
   bool loadingIcon = false;
 
   List<Map<String, dynamic>> _invoiceItems = [];
-  List<BluetoothDevice> _devices = [];
-  BluetoothDevice? _device;
+  List<BluetoothInfo _devices = [];
+  BluetoothInfo? _device;
   bool _connected = false;
 
   //TestPrint testPrint = TestPrint();
