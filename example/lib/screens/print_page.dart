@@ -563,9 +563,9 @@ class _PrintPageState extends State<PrintPage>
                               style: ElevatedButton.styleFrom(
                                   primary:
                                       _connected ? Colors.red : Colors.green),
-                              onPressed: _connected ? _disconnect : _connect,
+                              onPressed: connect(_device.macAdress) ? _disconnect : connect(_device.macAdress) ,
                               child: Text(
-                                _connected ? 'Disconnect' : 'Connect',
+                               connect(_device.macAdress) ? 'Disconnect' : 'Connect',
                                 style: const TextStyle(color: Colors.white),
                               ),
                             ),
