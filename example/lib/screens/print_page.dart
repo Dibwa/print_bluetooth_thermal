@@ -264,7 +264,7 @@ class _PrintPageState extends State<PrintPage>
   bool loadingIcon = false;
 
   List<Map<String, dynamic>> _invoiceItems = [];
-  List<BluetoothInfo _devices = [];
+  List<BluetoothInfo> _devices = [];
   BluetoothInfo? _device;
   bool _connected = false;
 
@@ -563,9 +563,8 @@ class _PrintPageState extends State<PrintPage>
                               style: ElevatedButton.styleFrom(
                                   primary:
                                       _connected ? Colors.red : Colors.green),
-                              onPressed: connect(_device.macAdress) ? _disconnect : connect(_device.macAdress) ,
-                              child: Text(
-                               connect(connected) ? 'Disconnect' : 'Connect',
+                              onPressed: connect(_device!.macAdress),
+                              child: Text(connected ? 'Disconnect' : 'Connect',
                                 style: const TextStyle(color: Colors.white),
                               ),
                             ),
@@ -872,18 +871,18 @@ class _PrintPageState extends State<PrintPage>
   connect(String mac) async {   
     
     
-    if (_device != null) {
-      bluetooth.isConnected.then((isConnected) {
-        if (isConnected == true) {
-          bluetooth.connect(_device!).catchError((error) {
-            setState(() => _connected = false);
-          });
-          setState(() => _connected = true);
-        }
-      });
-    } else {
-      show('No device selected.');
-    }
+    // if (_device != null) {
+    //   bluetooth.isConnected.then((isConnected) {
+    //     if (isConnected == true) {
+    //       bluetooth.connect(_device!).catchError((error) {
+    //         setState(() => _connected = false);
+    //       });
+    //       setState(() => _connected = true);
+    //     }
+    //   });
+    // } else {
+    //   show('No device selected.');
+    // }
     setState(() {
       _progress = true;
       _msjprogress = "Connecting...";
