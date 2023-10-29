@@ -527,7 +527,7 @@ class _PrintPageState extends State<PrintPage>
                             ),
                             Expanded(
                               child: DropdownButton(
-                                items: getBluetoots(),
+                                items: _getDeviceItems(),
                                 onChanged: (BluetoothInfo? value) =>
                                     setState(() => items_  = value),
                                 value:items_ ,
