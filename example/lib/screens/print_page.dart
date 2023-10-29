@@ -527,8 +527,8 @@ class _PrintPageState extends State<PrintPage>
                             ),
                             Expanded(
                               child: DropdownButton(
-                                items: _getDeviceItems(),
-                                onChanged: (BluetoothDevice? value) =>
+                                items: getBluetoots(),
+                                onChanged: (BluetoothInfo? value) =>
                                     setState(() => items_  = value),
                                 value:items_ ,
                               ),
@@ -688,8 +688,8 @@ class _PrintPageState extends State<PrintPage>
     );
   }
 
-  List<DropdownMenuItem<BluetoothDevice>> _getDeviceItems() {
-    List<DropdownMenuItem<BluetoothDevice>> items = [];
+  List<DropdownMenuItem<BluetoothInfo>> _getDeviceItems() {
+    List<DropdownMenuItem<BluetoothInfo>> items = [];
     if (_devices.isEmpty) {
       items.add(const DropdownMenuItem(
         child: Text('NONE'),
