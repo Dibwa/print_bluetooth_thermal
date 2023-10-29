@@ -55,7 +55,7 @@ class _PrintPageState extends State<PrintPage>
  String _info = "";
   String _msj = '';
   bool connected = false;
-  List<BluetoothInfo> items = [];
+  List<BluetoothInfo> items_ = [];
   List<String> _options = ["permission bluetooth granted", "bluetooth enabled", "connection status", "update info"];
 
   String _selectSize = "2";
@@ -66,11 +66,11 @@ class _PrintPageState extends State<PrintPage>
   String optionprinttype = "58 mm";
   List<String> options = ["58 mm", "80 mm"];
 
-  @override
-  void initState() {
-    super.initState();
-    initPlatformState();
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   initPlatformState();
+  // }
 
       ////////////////////////////
   @override
@@ -328,91 +328,91 @@ class _PrintPageState extends State<PrintPage>
         }));
   }
 
-  Future<void> initPlatformState() async {
-    bool? isConnected = await bluetooth.isConnected;
-    List<BluetoothDevice> devices = [];
-    try {
-      devices = await bluetooth.getBondedDevices();
-    } on PlatformException {}
+  // Future<void> initPlatformState() async {
+  //   bool? isConnected = await bluetooth.isConnected;
+  //   List<BluetoothDevice> devices = [];
+  //   try {
+  //     devices = await bluetooth.getBondedDevices();
+  //   } on PlatformException {}
 
-    bluetooth.onStateChanged().listen((state) {
-      switch (state) {
-        case BlueThermalPrinter.CONNECTED:
-          setState(() {
-            _connected = true;
-            print("bluetooth device state: connected");
-          });
-          break;
-        case BlueThermalPrinter.DISCONNECTED:
-          setState(() {
-            _connected = false;
-            print("bluetooth device state: disconnected");
-          });
-          break;
-        case BlueThermalPrinter.DISCONNECT_REQUESTED:
-          setState(() {
-            _connected = false;
-            print("bluetooth device state: disconnect requested");
-          });
-          break;
-        case BlueThermalPrinter.STATE_TURNING_OFF:
-          setState(() {
-            _connected = false;
-            printerContainer = false;
-            errorContainer = true;
-            print("bluetooth device state: bluetooth turning off");
-          });
-          break;
-        case BlueThermalPrinter.STATE_OFF:
-          setState(() {
-            _connected = false;
+  //   bluetooth.onStateChanged().listen((state) {
+  //     switch (state) {
+  //       case BlueThermalPrinter.CONNECTED:
+  //         setState(() {
+  //           _connected = true;
+  //           print("bluetooth device state: connected");
+  //         });
+  //         break;
+  //       case BlueThermalPrinter.DISCONNECTED:
+  //         setState(() {
+  //           _connected = false;
+  //           print("bluetooth device state: disconnected");
+  //         });
+  //         break;
+  //       case BlueThermalPrinter.DISCONNECT_REQUESTED:
+  //         setState(() {
+  //           _connected = false;
+  //           print("bluetooth device state: disconnect requested");
+  //         });
+  //         break;
+  //       case BlueThermalPrinter.STATE_TURNING_OFF:
+  //         setState(() {
+  //           _connected = false;
+  //           printerContainer = false;
+  //           errorContainer = true;
+  //           print("bluetooth device state: bluetooth turning off");
+  //         });
+  //         break;
+  //       case BlueThermalPrinter.STATE_OFF:
+  //         setState(() {
+  //           _connected = false;
 
-            printerContainer = false;
-            errorContainer = true;
-            print("bluetooth device state: bluetooth off");
-          });
-          break;
-        case BlueThermalPrinter.STATE_ON:
-          setState(() {
-            _connected = false;
-            printerContainer = true;
-            errorContainer = false;
-            print("bluetooth device state: bluetooth on");
-          });
-          break;
-        case BlueThermalPrinter.STATE_TURNING_ON:
-          setState(() {
-            _connected = false;
-            printerContainer = true;
-            errorContainer = false;
-            print("bluetooth device state: bluetooth turning on");
-          });
-          break;
-        case BlueThermalPrinter.ERROR:
-          setState(() {
-            _connected = false;
-            printerContainer = false;
-            errorContainer = true;
-            print("bluetooth device state: error");
-          });
-          break;
-        default:
-          print(state);
-          break;
-      }
-    });
+  //           printerContainer = false;
+  //           errorContainer = true;
+  //           print("bluetooth device state: bluetooth off");
+  //         });
+  //         break;
+  //       case BlueThermalPrinter.STATE_ON:
+  //         setState(() {
+  //           _connected = false;
+  //           printerContainer = true;
+  //           errorContainer = false;
+  //           print("bluetooth device state: bluetooth on");
+  //         });
+  //         break;
+  //       case BlueThermalPrinter.STATE_TURNING_ON:
+  //         setState(() {
+  //           _connected = false;
+  //           printerContainer = true;
+  //           errorContainer = false;
+  //           print("bluetooth device state: bluetooth turning on");
+  //         });
+  //         break;
+  //       case BlueThermalPrinter.ERROR:
+  //         setState(() {
+  //           _connected = false;
+  //           printerContainer = false;
+  //           errorContainer = true;
+  //           print("bluetooth device state: error");
+  //         });
+  //         break;
+  //       default:
+  //         print(state);
+  //         break;
+  //     }
+  //   });
 
-    if (!mounted) return;
-    setState(() {
-      _devices = devices;
-    });
+  //   if (!mounted) return;
+  //   setState(() {
+  //     _devices = devices;
+  //   });
 
-    if (isConnected == true) {
-      setState(() {
-        _connected = true;
-      });
-    }
-  }
+  //   if (isConnected == true) {
+  //     setState(() {
+  //       _connected = true;
+  //     });
+  //   }
+  // }
 
   Future<void> saveInvoice(Map<String, dynamic> newItem) async {
     List<dynamic> L = newItem["invoiceItems"];
@@ -529,8 +529,8 @@ class _PrintPageState extends State<PrintPage>
                               child: DropdownButton(
                                 items: _getDeviceItems(),
                                 onChanged: (BluetoothDevice? value) =>
-                                    setState(() => _device = value),
-                                value: _device,
+                                    setState(() => items_  = value),
+                                value:items_ ,
                               ),
                             ),
                           ],
@@ -845,7 +845,7 @@ class _PrintPageState extends State<PrintPage>
     setState(() {
       _progress = true;
       _msjprogress = "Wait";
-      items = [];
+      items_ = [];
     });
     final List<BluetoothInfo> listResult = await PrintBluetoothThermal.pairedBluetooths;
 
@@ -865,7 +865,7 @@ class _PrintPageState extends State<PrintPage>
     }
 
     setState(() {
-      items = listResult;
+      items_ = listResult;
     });
   }
 
