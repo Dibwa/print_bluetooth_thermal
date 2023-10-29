@@ -869,7 +869,7 @@ class _PrintPageState extends State<PrintPage>
     });
   }
 
-  Future<void> connect(String mac) async {
+  connect(String mac) async {
     setState(() {
       _progress = true;
       _msjprogress = "Connecting...";
