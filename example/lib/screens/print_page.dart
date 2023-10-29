@@ -705,20 +705,20 @@ class _PrintPageState extends State<PrintPage>
     return items;
   }
 
-  void _connect() {
-    if (_device != null) {
-      bluetooth.isConnected.then((isConnected) {
-        if (isConnected == true) {
-          bluetooth.connect(_device!).catchError((error) {
-            setState(() => _connected = false);
-          });
-          setState(() => _connected = true);
-        }
-      });
-    } else {
-      show('No device selected.');
-    }
-  }
+  // void _connect() {
+  //   if (_device != null) {
+  //     bluetooth.isConnected.then((isConnected) {
+  //       if (isConnected == true) {
+  //         bluetooth.connect(_device!).catchError((error) {
+  //           setState(() => _connected = false);
+  //         });
+  //         setState(() => _connected = true);
+  //       }
+  //     });
+  //   } else {
+  //     show('No device selected.');
+  //   }
+  // }
 
   void _disconnect() {
     bluetooth.disconnect();
