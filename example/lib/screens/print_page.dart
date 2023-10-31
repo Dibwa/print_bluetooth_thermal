@@ -1,4 +1,6 @@
 //import 'package:blue_thermal_printer_example/testprint.dart';
+// ignore_for_file: non_constant_identifier_names
+
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -31,16 +33,16 @@ class PrintPage extends StatefulWidget {
   final String firstName;
   final String lastName;
   final String token;
-
+  final String business_name;
   final String phoneNumber;
-
-  PrintPage({
-
-    required this.firstName,
-    required this.lastName,
-    required this.token,
-    required this.phoneNumber,
-  });
+  final String business_Id;
+  PrintPage(
+      {required this.firstName,
+      required this.lastName,
+      required this.token,
+      required this.phoneNumber,
+      required this.business_name,
+      required this.business_Id});
 
   @override
   _PrintPageState createState() => _PrintPageState();
@@ -48,15 +50,16 @@ class PrintPage extends StatefulWidget {
 
 class _PrintPageState extends State<PrintPage>
     with SingleTickerProviderStateMixin {
-
-
-
-
- String _info = "";
+  String _info = "";
   String _msj = '';
   bool connected = false;
-  List<BluetoothInfo> items_ = [];
-  List<String> _options = ["permission bluetooth granted", "bluetooth enabled", "connection status", "update info"];
+  List<BluetoothInfo> items = [];
+  List<String> _options = [
+    "permission bluetooth granted",
+    "bluetooth enabled",
+    "connection status",
+    "update info"
+  ];
 
   String _selectSize = "2";
   final _txtText = TextEditingController(text: "Hello developer");
@@ -72,12 +75,13 @@ class _PrintPageState extends State<PrintPage>
   //   initPlatformState();
   // }
 
-      ////////////////////////////
+  ////////////////////////////
   @override
   void initState() {
     super.initState();
     // _pendingBox.clear();
     initPlatformState();
+    connection_status();
     refresh();
     refresh_pending_products();
     refresh_product_list();
@@ -151,6 +155,7 @@ class _PrintPageState extends State<PrintPage>
   AudioCache cache = AudioCache();
   List<Map<String, dynamic>> _productItems_hive = [];
   List<Map<String, dynamic>> _productItems = [];
+  // ignore: non_constant_identifier_names
   void refresh_product_list() {
     final data = _productBox.keys.map((Key) {
       final item = _productBox.get(Key);
@@ -188,6 +193,7 @@ class _PrintPageState extends State<PrintPage>
     });
   }
 
+  // ignore: non_constant_identifier_names
   void refresh_pending_products() {
     final data = _pendingBox.keys.map((Key) {
       final item = _pendingBox.get(Key);
@@ -264,9 +270,6 @@ class _PrintPageState extends State<PrintPage>
   bool loadingIcon = false;
 
   List<Map<String, dynamic>> _invoiceItems = [];
-  List<BluetoothInfo> _devices = [];
-  BluetoothInfo? _device;
-  bool _connected = false;
 
   //TestPrint testPrint = TestPrint();
 
@@ -297,6 +300,9 @@ class _PrintPageState extends State<PrintPage>
   void transact(type) {
     var uuid = Uuid();
     var id = uuid.v4();
+    id_invoice = id;
+    refresh_pending_products();
+    printTest();
     saveInvoice({
       "key": id,
       "salesAgent": widget.phoneNumber,
@@ -306,11 +312,10 @@ class _PrintPageState extends State<PrintPage>
       "syncStatus": false
     });
 
-  
     refresh_pending_products();
-    setState(() {
-      _invoiceItems = [];
-    });
+    // setState(() {
+    //   _invoiceItems = [];
+    // });
     showFlashbar(
         context, "invoice successfully generated", Colors.green, "Successful");
   }
@@ -328,92 +333,6 @@ class _PrintPageState extends State<PrintPage>
         }));
   }
 
-  // Future<void> initPlatformState() async {
-  //   bool? isConnected = await bluetooth.isConnected;
-  //   List<BluetoothDevice> devices = [];
-  //   try {
-  //     devices = await bluetooth.getBondedDevices();
-  //   } on PlatformException {}
-
-  //   bluetooth.onStateChanged().listen((state) {
-  //     switch (state) {
-  //       case BlueThermalPrinter.CONNECTED:
-  //         setState(() {
-  //           _connected = true;
-  //           print("bluetooth device state: connected");
-  //         });
-  //         break;
-  //       case BlueThermalPrinter.DISCONNECTED:
-  //         setState(() {
-  //           _connected = false;
-  //           print("bluetooth device state: disconnected");
-  //         });
-  //         break;
-  //       case BlueThermalPrinter.DISCONNECT_REQUESTED:
-  //         setState(() {
-  //           _connected = false;
-  //           print("bluetooth device state: disconnect requested");
-  //         });
-  //         break;
-  //       case BlueThermalPrinter.STATE_TURNING_OFF:
-  //         setState(() {
-  //           _connected = false;
-  //           printerContainer = false;
-  //           errorContainer = true;
-  //           print("bluetooth device state: bluetooth turning off");
-  //         });
-  //         break;
-  //       case BlueThermalPrinter.STATE_OFF:
-  //         setState(() {
-  //           _connected = false;
-
-  //           printerContainer = false;
-  //           errorContainer = true;
-  //           print("bluetooth device state: bluetooth off");
-  //         });
-  //         break;
-  //       case BlueThermalPrinter.STATE_ON:
-  //         setState(() {
-  //           _connected = false;
-  //           printerContainer = true;
-  //           errorContainer = false;
-  //           print("bluetooth device state: bluetooth on");
-  //         });
-  //         break;
-  //       case BlueThermalPrinter.STATE_TURNING_ON:
-  //         setState(() {
-  //           _connected = false;
-  //           printerContainer = true;
-  //           errorContainer = false;
-  //           print("bluetooth device state: bluetooth turning on");
-  //         });
-  //         break;
-  //       case BlueThermalPrinter.ERROR:
-  //         setState(() {
-  //           _connected = false;
-  //           printerContainer = false;
-  //           errorContainer = true;
-  //           print("bluetooth device state: error");
-  //         });
-  //         break;
-  //       default:
-  //         print(state);
-  //         break;
-  //     }
-  //   });
-
-  //   if (!mounted) return;
-  //   setState(() {
-  //     _devices = devices;
-  //   });
-
-  //   if (isConnected == true) {
-  //     setState(() {
-  //       _connected = true;
-  //     });
-  //   }
-  // }
-
   Future<void> saveInvoice(Map<String, dynamic> newItem) async {
     List<dynamic> L = newItem["invoiceItems"];
     for (var i = 0; i < L.length; i++) {
@@ -422,7 +341,8 @@ class _PrintPageState extends State<PrintPage>
       final g = _productItems_hive.where((element) =>
           element["barcode"] == newItem["invoiceItems"][i]["barcode"]);
 
-      print("$g CCCCCCCCCCCCCCCCC ${g.first["stockQuantity"]}  CCCCCC ${newItem["invoiceItems"][i]["quantity"]} CCCCC $newItem");
+      print(
+          "$g CCCCCCCCCCCCCCCCC ${g.first["stockQuantity"]}  CCCCCC ${newItem["invoiceItems"][i]["quantity"]} CCCCC $newItem");
       final int k = int.parse(g.first["stockQuantity"]) -
           int.parse(newItem["invoiceItems"][i]["quantity"]);
 
@@ -437,9 +357,10 @@ class _PrintPageState extends State<PrintPage>
         "stockQuantity": k.toString()
       });
 
-    refresh_product_list();
+      refresh_product_list();
     }
-  _pendingBox.clear();
+
+    _pendingBox.clear();
     // newItem.forEach((key, value) {
     //   _productBox.get(key);
     //   //var chi = _productItems_hive[];
@@ -467,6 +388,15 @@ class _PrintPageState extends State<PrintPage>
     refresh_pending_products();
   }
 
+//check connection
+  connection_status() async {
+    final bool result = await PrintBluetoothThermal.connectionStatus;
+    setState(() {
+      connected = result;
+      print("connection status: $result");
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     num total_subTotal = 0;
@@ -485,243 +415,328 @@ class _PrintPageState extends State<PrintPage>
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Visibility(
-                visible: errorContainer,
-                child: Container(
-                    height: height * 0.2,
-                    width: width * 0.70,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: Colors.red,
-                    ),
-                    child: Center(
-                      child: Text("Kindly switch on your Bluetooth",
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold)),
-                    ))),
-            Visibility(
-              visible: printerContainer,
-              child: Expanded(
-                child: Container(
-                  width: width * 0.95,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Container(
-                        width: width * 0.93,
-                        margin: const EdgeInsets.only(top: 15),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            const Text(
-                              'Device:',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
+            (connected == false)
+                ? SingleChildScrollView(
+                    scrollDirection: Axis.vertical,
+                    child: Container(
+                      padding: EdgeInsets.all(20),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text('info: $_info\n '),
+                          Text(_msj),
+                          Row(
+                            children: [
+                              Text("Type print"),
+                              SizedBox(width: 10),
+                              DropdownButton<String>(
+                                value: optionprinttype,
+                                items: options.map((String option) {
+                                  return DropdownMenuItem<String>(
+                                    value: option,
+                                    child: Text(option),
+                                  );
+                                }).toList(),
+                                onChanged: (String? newValue) {
+                                  setState(() {
+                                    optionprinttype = newValue!;
+                                  });
+                                },
                               ),
-                            ),
-                            const SizedBox(
-                              width: 30,
-                            ),
-                            Expanded(
-                              child: DropdownButton(
-                         items: _getDeviceItems(),
-                                onChanged: (BluetoothInfo? value) =>
-                                    setState(() => _device = value),
-                                value: _device,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Container(
-                        width: width * 0.93,
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                  primary: Colors.pink),
-                              onPressed: () {
-                                initPlatformState();
-                              },
-                              child: const Text(
-                                'Refresh',
-                                style: TextStyle(color: Colors.white),
-                              ),
-                            ),
-                            const SizedBox(
-                              width: 20,
-                            ),
-                            ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                  primary:
-                                      _connected ? Colors.red : Colors.green),
-                              onPressed: connect(_device!.macAdress),
-                              child: Text(connected ? 'Disconnect' : 'Connect',
-                                style: const TextStyle(color: Colors.white),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Container(
-                        width: width * 0.93,
-                        margin: const EdgeInsets.only(top: 10),
-                        child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(primary: Colors.grey),
-                          onPressed: () {
-                            scanBarcodeNormal();
-                          },
-                          child: const Text('SCAN PRODUCT',
-                              style: TextStyle(color: Colors.white)),
-                        ),
-                      ),
-                      Row(children: [
-                        Container(
-                          width: width * 0.45,
-                          margin: const EdgeInsets.only(top: 2),
-                          child: ElevatedButton(
-                            style:
-                                ElevatedButton.styleFrom(primary: Colors.black),
-                            onPressed: () {
-                              //testPrint.sample();
-                              transact("CASH");
-                            },
-                            child: const Text('PRINT RECEIPT',
-                                style: TextStyle(color: Colors.white)),
+                            ],
                           ),
-                        ),
-                        const SizedBox(
-                          width: 5,
-                        ),
-                        Container(
-                          width: width * 0.45,
-                          margin: const EdgeInsets.only(top: 2),
-                          child: ElevatedButton(
-                            style:
-                                ElevatedButton.styleFrom(primary: Colors.black),
-                            onPressed: () {
-                              //  if (_invoiceItems.isEmpty) return;
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              ElevatedButton(
+                                onPressed: () {
+                                  this.getBluetoots();
+                                },
+                                child: Row(
+                                  children: [
+                                    Visibility(
+                                      visible: _progress,
+                                      child: SizedBox(
+                                        width: 25,
+                                        height: 25,
+                                        child:
+                                            CircularProgressIndicator.adaptive(
+                                                strokeWidth: 1,
+                                                backgroundColor: Colors.white),
+                                      ),
+                                    ),
+                                    SizedBox(width: 5),
+                                    Text(_progress ? _msjprogress : "Search"),
+                                  ],
+                                ),
+                              ),
+                              ElevatedButton(
+                                onPressed: connected ? this.disconnect : null,
+                                child: Text("Disconnect"),
+                              ),
+                              ElevatedButton(
+                                onPressed: connected ? this.printTest : null,
+                                child: Text("Test"),
+                              ),
+                            ],
+                          ),
+                          Container(
+                              height: 200,
+                              decoration: BoxDecoration(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10)),
+                                color: Colors.grey.withOpacity(0.3),
+                              ),
+                              child: ListView.builder(
+                                itemCount: items.length > 0 ? items.length : 0,
+                                itemBuilder: (context, index) {
+                                  return ListTile(
+                                    onTap: () {
+                                      String mac = items[index].macAdress;
+                                      this.connect(mac);
+                                    },
+                                    title: Text('Name: ${items[index].name}'),
+                                    subtitle: Text(
+                                        "macAddress: ${items[index].macAdress}"),
+                                  );
+                                },
+                              )),
+                          SizedBox(height: 10),
+                          Container(
+                            padding: EdgeInsets.all(10),
+                            decoration: BoxDecoration(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10)),
+                              color: Colors.grey.withOpacity(0.3),
+                            ),
+                            child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Column( crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    ElevatedButton(
+                                      onPressed: () async {
+                                        bool status =
+                                            await PrintBluetoothThermal
+                                                .isPermissionBluetoothGranted;
+                                        setState(() {
+                                          print(
+                                              "permission bluetooth granted: $status");
+                                        });
+                                        // connected ? this.printWithoutPackage : null
+                                      },
+                                      child: Text("Permission status",
+                                          style: TextStyle(fontSize: 12)),
+                                    ),
+                                    ElevatedButton(
+                                      onPressed: () async {
+                                        bool state = await PrintBluetoothThermal
+                                            .bluetoothEnabled;
 
-                              _show_bottom_sheet(context);
-                            },
-                            child: const Text('MOBILE PAYMENT',
-                                style: TextStyle(color: Colors.white)),
+                                        if (state == false) {
+                                          showFlashbar(
+                                              context,
+                                              "Bluetooth connection is currently off",
+                                              Colors.red,
+                                              "Bluetooth Connection");
+                                        } else if (state == true) {
+                                          showFlashbar(
+                                              context,
+                                              "Bluetooth connection is currently on",
+                                              Colors.green,
+                                              "Bluetooth Connection");
+                                        }
+
+                                        setState(() {
+                                          print(
+                                              "permission bluetooth granted: $state");
+                                        });
+
+                                        // connected ? this.printWithoutPackage : null
+                                      },
+                                      child: Text("Bluetooth enabled",
+                                          style: TextStyle(fontSize: 12)),
+                                    ),
+                                  ],
+                                ),
+                                Column(crossAxisAlignment: CrossAxisAlignment.end,
+                                  children: [
+                                    ElevatedButton(
+                                      onPressed: () async {
+                                        initPlatformState();
+                                               showFlashbar(
+                                              context,
+                                              "Bluetooth connection is currently on",
+                                              Colors.black,
+                                              "Bluetooth Infor Updated");
+
+                                        // connected ? this.printWithoutPackage : null
+                                      },
+                                      child: Text("update info"),
+                                    ),
+                                    ElevatedButton(
+                                      onPressed: () async {
+                                        final bool result =
+                                            await PrintBluetoothThermal
+                                                .connectionStatus;
+
+                                                
+                                        if (result  == false) {
+                                          showFlashbar(
+                                              context,
+                                              "Printer currently not connected",
+                                              Colors.red,
+                                              "Printer Connection");
+                                        } else if (result == true) {
+                                          showFlashbar(
+                                              context,
+                                              "Printer currently connected",
+                                              Colors.green,
+                                              "Printer connection");
+                                        }
+                                        setState(() {
+                                          print("connection status: $result");
+                                        });
+
+                                        // connected ? this.printWithoutPackage : null
+                                      },
+                                      child: Text("connection status",
+                                          style: TextStyle(fontSize: 12)),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
                           ),
-                        )
-                      ]),
-                      (_invoiceItems.isEmpty)
-                          ? Visibility(
-                              visible: emptylistText,
-                              child: Expanded(
-                                child: Container(
-                                  width: width * 0.93,
-                                  color: Colors.grey.shade200,
+                          SizedBox(height: 10),
+                        ],
+                      ),
+                    ),
+                  )
+                : Expanded(
+                    child: Container(
+                      width: width * 0.95,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Container(
+                            width: width * 0.93,
+                            margin: const EdgeInsets.only(top: 10),
+                            child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                  primary: Colors.grey),
+                              onPressed: () {
+                                scanBarcodeNormal();
+                              },
+                              child: const Text('SCAN PRODUCT',
+                                  style: TextStyle(color: Colors.white)),
+                            ),
+                          ),
+                          Row(children: [
+                            Container(
+                              width: width * 0.45,
+                              margin: const EdgeInsets.only(top: 2),
+                              child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                    primary: Colors.black),
+                                onPressed: () {
+                                  //testPrint.sample();
+
+                                  transact("CASH");
+                                },
+                                child: const Text('PRINT RECEIPT',
+                                    style: TextStyle(color: Colors.white)),
+                              ),
+                            ),
+                            const SizedBox(
+                              width: 5,
+                            ),
+                            Container(
+                              width: width * 0.45,
+                              margin: const EdgeInsets.only(top: 2),
+                              child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                    primary: Colors.black),
+                                onPressed: () {
+                                  //  if (_invoiceItems.isEmpty) return;
+
+                                  _show_bottom_sheet(context);
+                                },
+                                child: const Text('MOBILE PAYMENT',
+                                    style: TextStyle(color: Colors.white)),
+                              ),
+                            )
+                          ]),
+                          (_invoiceItems.isEmpty)
+                              ? Visibility(
+                                  visible: emptylistText,
+                                  child: Expanded(
+                                    child: Container(
+                                      width: width * 0.93,
+                                      color: Colors.grey.shade200,
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          Text('No Products Added',
+                                              style: TextStyle(
+                                                  fontSize: 28,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.black
+                                                      .withOpacity(0.5))),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                )
+                              : Expanded(
                                   child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
                                     crossAxisAlignment:
-                                        CrossAxisAlignment.center,
+                                        CrossAxisAlignment.start,
                                     children: [
-                                      Text('No Products Added',
-                                          style: TextStyle(
-                                              fontSize: 28,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.black
-                                                  .withOpacity(0.5))),
+                                      Container(
+                                        margin: const EdgeInsets.only(left: 10),
+                                        child: Text("Total ZMW $total_subTotal",
+                                            style: TextStyle(
+                                                fontSize: 18,
+                                                fontWeight: FontWeight.bold)),
+                                      ),
+                                      Expanded(
+                                        child: Container(
+                                          margin: const EdgeInsets.symmetric(
+                                              horizontal: 10),
+                                          child: ListView.builder(
+                                              itemCount: _invoiceItems.length,
+                                              itemBuilder: (context, index) {
+                                                final items =
+                                                    _invoiceItems[index];
+                                                print(items);
+                                                return ProductTile(
+                                                  function: () =>
+                                                      _deleteItem(items['key']),
+                                                  productName:
+                                                      items['productName'],
+                                                  productPrice: items['price'],
+                                                  productQuantity:
+                                                      items['quantity'],
+                                                  productsubTotal:
+                                                      items['subTotal'],
+                                                );
+                                              }),
+                                        ),
+                                      ),
                                     ],
                                   ),
                                 ),
-                              ),
-                            )
-                          : Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Container(
-                                    margin: const EdgeInsets.only(left: 10),
-                                    child: Text("Total ZMW $total_subTotal",
-                                        style: TextStyle(
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.bold)),
-                                  ),
-                                  Expanded(
-                                    child: Container(
-                                      margin: const EdgeInsets.symmetric(
-                                          horizontal: 10),
-                                      child: ListView.builder(
-                                          itemCount: _invoiceItems.length,
-                                          itemBuilder: (context, index) {
-                                            final items = _invoiceItems[index];
-                                            print(items);
-                                            return ProductTile(
-                                              function: () =>
-                                                  _deleteItem(items['key']),
-                                              productName: items['productName'],
-                                              productPrice: items['price'],
-                                              productQuantity:
-                                                  items['quantity'],
-                                              productsubTotal:
-                                                  items['subTotal'],
-                                            );
-                                          }),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                    ],
+                        ],
+                      ),
+                    ),
                   ),
-                ),
-              ),
-            ),
           ],
         ),
       ),
     );
-  }
-
-  List<DropdownMenuItem<BluetoothInfo>> _getDeviceItems() {
-    List<DropdownMenuItem<BluetoothInfo>> items = [];
-    if (_devices.isEmpty) {
-      items.add(const DropdownMenuItem(
-        child: Text('NONE'),
-      ));
-    } else {
-      _devices.forEach((device) {
-        items.add(DropdownMenuItem(
-          child: Text(device.name ?? ""),
-          value: device,
-        ));
-      });
-    }
-    return items;
-  }
-
-  // void _connect() {
-  //   if (_device != null) {
-  //     bluetooth.isConnected.then((isConnected) {
-  //       if (isConnected == true) {
-  //         bluetooth.connect(_device!).catchError((error) {
-  //           setState(() => _connected = false);
-  //         });
-  //         setState(() => _connected = true);
-  //       }
-  //     });
-  //   } else {
-  //     show('No device selected.');
-  //   }
-  // }
-
-  void _disconnect() {
-    bluetooth.disconnect();
-    setState(() => _connected = false);
   }
 
   Future show(
@@ -801,16 +816,9 @@ class _PrintPageState extends State<PrintPage>
         });
   }
 
-
-
-
-
-
-
-
   ///////////////////////////////
 
-   Future<void> initPlatformState() async {
+  Future<void> initPlatformState() async {
     String platformVersion;
     int porcentbatery = 0;
     // Platform messages may fail, so we use a try/catch PlatformException.
@@ -844,9 +852,10 @@ class _PrintPageState extends State<PrintPage>
     setState(() {
       _progress = true;
       _msjprogress = "Wait";
-      items_ = [];
+      items = [];
     });
-    final List<BluetoothInfo> listResult = await PrintBluetoothThermal.pairedBluetooths;
+    final List<BluetoothInfo> listResult =
+        await PrintBluetoothThermal.pairedBluetooths;
 
     /*await Future.forEach(listResult, (BluetoothInfo bluetooth) {
       String name = bluetooth.name;
@@ -858,37 +867,25 @@ class _PrintPageState extends State<PrintPage>
     });
 
     if (listResult.length == 0) {
-      _msj = "There are no bluetoohs linked, go to settings and link the printer";
+      _msj =
+          "There are no bluetoohs linked, go to settings and link the printer";
     } else {
       _msj = "Touch an item in the list to connect";
     }
 
     setState(() {
-      items_ = listResult;
+      items = listResult;
     });
   }
 
-  connect(String mac) async {   
-    
-    
-    // if (_device != null) {
-    //   bluetooth.isConnected.then((isConnected) {
-    //     if (isConnected == true) {
-    //       bluetooth.connect(_device!).catchError((error) {
-    //         setState(() => _connected = false);
-    //       });
-    //       setState(() => _connected = true);
-    //     }
-    //   });
-    // } else {
-    //   show('No device selected.');
-    // }
+  connect(String mac) async {
     setState(() {
       _progress = true;
       _msjprogress = "Connecting...";
       connected = false;
     });
-    final bool result = await PrintBluetoothThermal.connect(macPrinterAddress: mac);
+    final bool result =
+        await PrintBluetoothThermal.connect(macPrinterAddress: mac);
     print("state conected $result");
     if (result) connected = true;
     setState(() {
@@ -923,9 +920,12 @@ class _PrintPageState extends State<PrintPage>
       await PrintBluetoothThermal.writeBytes(enter.codeUnits);
       //size of 1-5
       String text = "Hello";
-      await PrintBluetoothThermal.writeString(printText: PrintTextSize(size: 1, text: text));
-      await PrintBluetoothThermal.writeString(printText: PrintTextSize(size: 2, text: text + " size 2"));
-      await PrintBluetoothThermal.writeString(printText: PrintTextSize(size: 3, text: text + " size 3"));
+      await PrintBluetoothThermal.writeString(
+          printText: PrintTextSize(size: 1, text: text));
+      await PrintBluetoothThermal.writeString(
+          printText: PrintTextSize(size: 2, text: text + " size 2"));
+      await PrintBluetoothThermal.writeString(
+          printText: PrintTextSize(size: 3, text: text + " size 3"));
     } else {
       //desconectado
       print("desconectado bluetooth $conexionStatus");
@@ -936,7 +936,8 @@ class _PrintPageState extends State<PrintPage>
     List<int> bytes = [];
     // Using default profile
     final profile = await CapabilityProfile.load();
-    final generator = Generator(optionprinttype == "58 mm" ? PaperSize.mm58 : PaperSize.mm80, profile);
+    final generator = Generator(
+        optionprinttype == "58 mm" ? PaperSize.mm58 : PaperSize.mm80, profile);
     //bytes += generator.setGlobalFont(PosFontType.fontA);
     bytes += generator.reset();
 
@@ -946,73 +947,129 @@ class _PrintPageState extends State<PrintPage>
 
     if (Platform.isIOS) {
       // Resizes the image to half its original size and reduces the quality to 80%
-      final resizedImage = img.copyResize(image!, width: image.width ~/ 1.3, height: image.height ~/ 1.3, interpolation: img.Interpolation.nearest);
+      final resizedImage = img.copyResize(image!,
+          width: image.width ~/ 1.3,
+          height: image.height ~/ 1.3,
+          interpolation: img.Interpolation.nearest);
       final bytesimg = Uint8List.fromList(img.encodeJpg(resizedImage));
       //image = img.decodeImage(bytesimg);
     }
 
     //Using `ESC *`
-    bytes += generator.image(image!);
+    // bytes += generator.image(image!);
 
-    bytes += generator.text('Regular: aA bB cC dD eE fF gG hH iI jJ kK lL mM nN oO pP qQ rR sS tT uU vV wW xX yY zZ');
-    bytes += generator.text('Special 1: ñÑ àÀ èÈ éÉ üÜ çÇ ôÔ', styles: PosStyles(codeTable: 'CP1252'));
-    bytes += generator.text('Special 2: blåbærgrød', styles: PosStyles(codeTable: 'CP1252'));
+    // bytes += generator.text(
+    //     'Regular: aA bB cC dD eE fF gG hH iI jJ kK lL mM nN oO pP qQ rR sS tT uU vV wW xX yY zZ');
+    // bytes += generator.text('Special 1: ñÑ àÀ èÈ éÉ üÜ çÇ ôÔ',
+    //     styles: PosStyles(codeTable: 'CP1252'));
+    // bytes += generator.text('Special 2: blåbærgrød',
+    //     styles: PosStyles(codeTable: 'CP1252'));
 
-    bytes += generator.text('Bold text', styles: PosStyles(bold: true));
-    bytes += generator.text('Reverse text', styles: PosStyles(reverse: true));
-    bytes += generator.text('Underlined text', styles: PosStyles(underline: true), linesAfter: 1);
-    bytes += generator.text('Align left', styles: PosStyles(align: PosAlign.left));
-    bytes += generator.text('Align center', styles: PosStyles(align: PosAlign.center));
-    bytes += generator.text('Align right', styles: PosStyles(align: PosAlign.right), linesAfter: 1);
+    bytes += generator.text('Shop Name:  ${widget.business_name}',
+        styles: PosStyles(bold: true));
+    bytes += generator.text('Shop id:  ${widget.business_Id}');
 
-    bytes += generator.row([
-      PosColumn(
-        text: 'col3',
-        width: 3,
-        styles: PosStyles(align: PosAlign.center, underline: true),
-      ),
-      PosColumn(
-        text: 'col6',
-        width: 6,
-        styles: PosStyles(align: PosAlign.center, underline: true),
-      ),
-      PosColumn(
-        text: 'col3',
-        width: 3,
-        styles: PosStyles(align: PosAlign.center, underline: true),
-      ),
-    ]);
-
-    //barcode
-
-    final List<int> barData = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 4];
-    bytes += generator.barcode(Barcode.upcA(barData));
-
-    //QR code
-    bytes += generator.qrcode('example.com');
+    // bytes += generator.text('Reverse text', styles: PosStyles(reverse: true));
+    // bytes += generator.text('Underlined text',
+    //     styles: PosStyles(underline: true), linesAfter: 1);
 
     bytes += generator.text(
-      'Text size 50%',
+      'invoiceID: $id_invoice',
       styles: PosStyles(
         fontType: PosFontType.fontB,
       ),
     );
+
+    // bytes += generator.hr();
+    bytes += generator.emptyLines(2);
+    // bytes +=
+    //     generator.text('Align left', styles: PosStyles(align: PosAlign.left));
+    // bytes += generator.text('Align center',
+    //     styles: PosStyles(align: PosAlign.center));
+    // bytes += generator.text('Align right',
+    //     styles: PosStyles(align: PosAlign.right), linesAfter: 1);
+
+    num total = 0;
+    //_invoiceItems.
+    print("ffffffffffffffffffffff PPPPPPPPPPPPPPPPPPP ${_invoiceItems}");
+    for (var i = 0; i < _invoiceItems.length; i++) {
+      total += _invoiceItems[i]['subTotal'];
+      print("ffffffffffffffffffffff PPPPPPPPPPPPPPPPPPP");
+
+      bytes += generator.row([
+        PosColumn(
+          text: "${_invoiceItems[i]['productName']}",
+          width: 7,
+          styles: PosStyles(align: PosAlign.left, underline: false),
+        ),
+        PosColumn(
+          text: "x ${_invoiceItems[i]['quantity']}",
+          width: 2,
+          styles: PosStyles(align: PosAlign.center, underline: false),
+        ),
+        PosColumn(
+          text: "ZMW ${_invoiceItems[i]['subTotal']}",
+          width: 3,
+          styles: PosStyles(align: PosAlign.right, underline: false),
+        ),
+      ]);
+    }
+    bytes += generator.emptyLines(1);
+    bytes += generator.row([
+      PosColumn(
+        text: "Total",
+        width: 6,
+        styles: PosStyles(align: PosAlign.left, underline: false),
+      ),
+      PosColumn(
+        text: "ZMW $total",
+        width: 6,
+        styles: PosStyles(align: PosAlign.right, underline: false, bold: true),
+      ),
+    ]);
+    // bytes += generator.row([
+    //   PosColumn(
+    //     text: 'col3',
+    //     width: 6,
+    //     styles: PosStyles(align: PosAlign.center, underline: true),
+    //   ),
+    //   PosColumn(
+    //     text: 'col3',
+    //     width: 6,
+    //     styles: PosStyles(align: PosAlign.center, underline: true),
+    //   ),
+    // ]);
+
+    //barcode
+
+    // final List<int> barData = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 4];
+    // bytes += generator.barcode(Barcode.upcA(barData));
+
+    // //QR code
+    // bytes += generator.qrcode('example.com');
+
+    bytes += generator.emptyLines(3);
     bytes += generator.text(
-      'Text size 100%',
+      'Cashier: ${widget.firstName} ${widget.lastName}',
       styles: PosStyles(
         fontType: PosFontType.fontA,
       ),
     );
+
+    bytes += generator.emptyLines(2);
     bytes += generator.text(
-      'Text size 200%',
+      'Shop Manager',
       styles: PosStyles(
         height: PosTextSize.size2,
         width: PosTextSize.size2,
       ),
     );
-
-    bytes += generator.feed(2);
+    bytes += generator.emptyLines(3);
+    // bytes += generator.feed(2);
     //bytes += generator.cut();
+    setState(() {
+      _invoiceItems = [];
+    });
     return bytes;
   }
 
@@ -1021,7 +1078,8 @@ class _PrintPageState extends State<PrintPage>
     bool connectionStatus = await PrintBluetoothThermal.connectionStatus;
     if (connectionStatus) {
       String text = _txtText.text.toString() + "\n";
-      bool result = await PrintBluetoothThermal.writeString(printText: PrintTextSize(size: int.parse(_selectSize), text: text));
+      bool result = await PrintBluetoothThermal.writeString(
+          printText: PrintTextSize(size: int.parse(_selectSize), text: text));
       print("status print result: $result");
       setState(() {
         _msj = "printed status: $result";

@@ -410,6 +410,8 @@ class HomePageState extends State<HomePage> with TickerProviderStateMixin {
                         lastName: widget.lastName,
                         phoneNumber: widget.phoneNumber,
                         token: widget.token,
+                        business_name:widget.business_name,
+                        business_Id:widget.business_Id
                       ),
                       Transaction_List_Page(
                         firstName: widget.firstName,
