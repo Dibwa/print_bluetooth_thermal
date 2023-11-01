@@ -8,8 +8,8 @@
 
     <application
         android:name="${applicationName}"
-        android:label="print_bluetooth_thermal_example"
-        android:icon="@mipmap/ic_launcher">
+        android:label="shop manager"
+        android:icon="@mipmap/shop_manager">
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"

@@ -138,8 +138,8 @@ class _Product_List_PageState extends State<Product_List_Page>
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              (_productItems.isEmpty && option_ == false)
-                  ? Visibility(
+         
+                  Visibility(
                       visible: empty_text,
                       child: Container(
                           height: height * 0.2,
@@ -155,161 +155,161 @@ class _Product_List_PageState extends State<Product_List_Page>
                                     fontSize: 16,
                                     fontWeight: FontWeight.bold)),
                           )))
-                  : Visibility(
-                      visible: product_list_visibility,
-                      child: Expanded(
-                        child: Container(
-                          margin: const EdgeInsets.symmetric(horizontal: 10),
-                          child: ListView.builder(
-                              itemCount: _productItems.length,
-                              itemBuilder: (context, index) {
-                                final items = _productItems[index];
-                                print(items);
-                                return Products_Enlisted_Tile(
-                                    function_edit: () => _show_bottom_sheet(
-                                        context,
-                                        items['key'],
-                                        items['productName'],
-                                        items['productMetric'],
-                                        items['metricQuantity'],
-                                        items['price'],
-                                        items['stockQuantity']),
-                                    function_delete: () =>
-                                        _deleteItem(items['key']),
-                                    productName: items['productName'],
-                                    productPrice: items['price'],
-                                    productQuantity: items['metricQuantity'],
-                                    product_metric_quantity:
-                                        items['productMetric']);
-                              }),
-                        ),
-                      ),
+                  ,Visibility(visible: product_list_visibility,
+                    child: Expanded(
+                      child: ListView.builder(
+                          itemCount: _productItems.length,
+                          itemBuilder: (context, index) {
+                            final items = _productItems[index];
+                            print(items);
+                  
+                           print ("ccccccccccccccccccccccccc${items['price']}");
+                            return Products_Enlisted_Tile(
+                                function_edit: () => _show_bottom_sheet(
+                                    context,
+                                    items['key'],
+                                    items['productName'],
+                                    items['productMetric'],
+                                    items['metricQuantity'],
+                                    items['price'],
+                                    items['stockQuantity']),
+                                function_delete: () =>
+                                    _deleteItem(items['key']),
+                                productName: items['productName'],
+                                productPrice: items['price'],
+                                productQuantity: items['metricQuantity'],
+                                product_metric_quantity:
+                                    items['productMetric']);
+                          }),
                     ),
+                  ),
               Visibility(
                 visible: option_,
-                child: Container(
-                  width: width * 0.8,
-                  child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text("Groceries",
-                                style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.grey)),
-                            SizedBox(
-                              width: width * 0.4,
-                              height: 10,
-                            ),
-                            Checkbox(
-                                value: grocery_status,
-                                onChanged: (Value) {
-                                  setState(() {
-                                    grocery_status = Value!;
-                                    if (Value == true) {
-                                      _picked_options.add("grocery");
-
-                                      print(_picked_options);
-                                    } else if (Value == false) {
-                                      _picked_options.remove("grocery");
-                                      print(_picked_options);
-                                    }
-                                  });
-                                })
-                          ],
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text("Hardware",
-                                style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.grey)),
-                            SizedBox(
-                              width: width * 0.4,
-                              height: 10,
-                            ),
-                            Checkbox(
-                                value: hardware_status,
-                                onChanged: (Value) {
-                                  setState(() {
-                                    hardware_status = Value!;
-                                    if (Value == true) {
-                                      _picked_options.add("hardware");
-
-                                      print(_picked_options);
-                                    } else if (Value == false) {
-                                      _picked_options.remove("hardware");
-                                      print(_picked_options);
-                                    }
-                                  });
-                                })
-                          ],
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text("Pharmacy",
-                                style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.grey)),
-                            SizedBox(
-                              width: width * 0.4,
-                              height: 10,
-                            ),
-                            Checkbox(
-                                value: pharmacy_status,
-                                onChanged: (Value) {
-                                  setState(() {
-                                    pharmacy_status = Value!;
-                                    if (Value == true) {
-                                      _picked_options.add("pharmacy");
-
-                                      print(_picked_options);
-                                    } else if (Value == false) {
-                                      _picked_options.remove("pharmacy");
-                                      print(_picked_options);
-                                    }
-                                  });
-                                })
-                          ],
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        MyButton(
-                          buttoncolor: downloadcolor,
-                          isLoading: loadingIcon,
-                          function: donwload_products,
-                          lable: download_lable,
-                        ),
-                        SizedBox(
-                          height: 5,
-                        ),
-                        MyButton(
-                          buttoncolor: Colors.red,
-                          isLoading: false,
-                          function: () {
-                            setState(() {
-                              if (_productItems.isEmpty) {
-                                empty_text = true;
-                                product_list_visibility = false;
-                                option_ = false;
-                              } else {
-                                option_ = false;
-                                empty_text = false;
-                                product_list_visibility = true;
-                              }
-                            });
-                          },
-                          lable: "Cancel",
-                        ),
-                      ]),
+                child: Expanded(
+                  child: Container(margin: EdgeInsets.only(top: 50),
+                    width: width * 0.8,
+                    child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text("Groceries",
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.grey)),
+                              SizedBox(
+                                width: width * 0.4,
+                                height: 10,
+                              ),
+                              Checkbox(
+                                  value: grocery_status,
+                                  onChanged: (Value) {
+                                    setState(() {
+                                      grocery_status = Value!;
+                                      if (Value == true) {
+                                        _picked_options.add("grocery");
+                
+                                        print(_picked_options);
+                                      } else if (Value == false) {
+                                        _picked_options.remove("grocery");
+                                        print(_picked_options);
+                                      }
+                                    });
+                                  })
+                            ],
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text("Hardware",
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.grey)),
+                              SizedBox(
+                                width: width * 0.4,
+                                height: 10,
+                              ),
+                              Checkbox(
+                                  value: hardware_status,
+                                  onChanged: (Value) {
+                                    setState(() {
+                                      hardware_status = Value!;
+                                      if (Value == true) {
+                                        _picked_options.add("hardware");
+                
+                                        print(_picked_options);
+                                      } else if (Value == false) {
+                                        _picked_options.remove("hardware");
+                                        print(_picked_options);
+                                      }
+                                    });
+                                  })
+                            ],
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text("Pharmacy",
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.grey)),
+                              SizedBox(
+                                width: width * 0.4,
+                                height: 10,
+                              ),
+                              Checkbox(
+                                  value: pharmacy_status,
+                                  onChanged: (Value) {
+                                    setState(() {
+                                      pharmacy_status = Value!;
+                                      if (Value == true) {
+                                        _picked_options.add("pharmacy");
+                
+                                        print(_picked_options);
+                                      } else if (Value == false) {
+                                        _picked_options.remove("pharmacy");
+                                        print(_picked_options);
+                                      }
+                                    });
+                                  })
+                            ],
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          MyButton(
+                            buttoncolor: downloadcolor,
+                            isLoading: loadingIcon,
+                            function: donwload_products,
+                            lable: download_lable,
+                          ),
+                          SizedBox(
+                            height: 5,
+                          ),
+                          MyButton(
+                            buttoncolor: Colors.red,
+                            isLoading: false,
+                            function: () {
+                              setState(() {
+                                if (_productItems.isEmpty) {
+                                  empty_text = true;
+                                  product_list_visibility = false;
+                                  option_ = false;
+                                } else {
+                                  option_ = false;
+                                  empty_text = false;
+                                  product_list_visibility = true;
+                                }
+                              });
+                            },
+                            lable: "Cancel",
+                          ),
+                        ]),
+                  ),
                 ),
               )
             ]),
