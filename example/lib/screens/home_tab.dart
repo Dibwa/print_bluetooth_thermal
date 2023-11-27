@@ -220,11 +220,19 @@ class HomePageState extends State<HomePage> with TickerProviderStateMixin {
         break;
       case 2:
         Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => SettingsPage(
+            builder: (context) => SettingsPage( 
                   firstName: widget.firstName,
                   lastName: widget.lastName,
                   phoneNumber: widget.phoneNumber,
                   token: widget.token,
+                   business_Id: widget.business_Id,
+                  business_name: widget.business_name,
+                  business_phone_number: widget.business_phone_number,
+                  business_whatsapp_number: widget.business_whatsapp_number,   
+                  creditScore: widget.creditScore,
+                 
+                   creditLimit: widget.creditLimit,
+
                 )));
         break;
 
@@ -235,6 +243,7 @@ class HomePageState extends State<HomePage> with TickerProviderStateMixin {
                   lastName: widget.lastName,
                   phoneNumber: widget.phoneNumber,
                   token: widget.token,
+
                 )));
         break;
 

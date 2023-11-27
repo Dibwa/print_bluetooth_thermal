@@ -1,4 +1,4 @@
-// ignore_for_file: sized_box_for_whitespace
+// ignore_for_file: sized_box_for_whitespace, non_constant_identifier_names
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'dart:async';
 import 'package:get/get.dart';
@@ -72,20 +72,20 @@ class _LoginPageState extends State<LoginPage> {
 
       if (didAuthenticate == true) {
         final response = biometricBox.get("0");
+
+        print(response);
         String firstName = response["firstName"];
         String lastName = response["lastName"];
         String token = response["token"];
 
         String phoneNumber = response["phoneNumber"];
-        int creditLimit = response["phoneNumber"];
-        double creditScore = response["phoneNumber"];
-        var balance = response["phoneNumber"];
-        String business_Id = response.body["business"]["businessId"];
-        String business_name = response.body["business"]["businessName"];
-        String business_phone_number =
-            response.body["business"]["businessphoneNumber"];
-        String business_whatsapp_number =
-            response.body["business"]["businesswhatsappNumber"];
+        int creditLimit = response["creditLimit"];
+        double creditScore = response["creditScore"];
+        var balance = 0;
+        String business_Id = response["businessId"];
+        String business_name = response["businessName"];
+        String business_phone_number = response["businessphoneNumber"];
+        String business_whatsapp_number = response["businesswhatsappNumber"];
         Navigator.push(
             context,
             MaterialPageRoute(

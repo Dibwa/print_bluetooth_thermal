@@ -13,13 +13,25 @@ class SettingsPage extends StatefulWidget {
   String lastName;
   String token;
   String phoneNumber;
-  SettingsPage({
+
+  final String business_name;
+  final String business_whatsapp_number;
+  final String business_phone_number;
+  final String business_Id;
+  double creditScore;
+  int creditLimit;
+  SettingsPage(
+      {required this.firstName,
+      required this.lastName,
+      required this.token,
+      required this.phoneNumber,
   
-    required this.firstName,
-    required this.lastName,
-    required this.token,
-    required this.phoneNumber,
-  });
+      required this.creditScore,
+      required this.creditLimit,
+      required this.business_name,
+      required this.business_whatsapp_number,
+      required this.business_phone_number,
+      required this.business_Id});
 
   @override
   State<SettingsPage> createState() => _SettingsPageState();
@@ -133,6 +145,13 @@ class _SettingsPageState extends State<SettingsPage> {
                             "lastName": widget.lastName,
                             "token": widget.token,
                             "phoneNumber": widget.phoneNumber,
+                         
+                            "creditScore": widget.creditScore,
+                            "creditLimit": widget.creditLimit,
+                            "businessName": widget.business_name,
+                            "businesswhatsappNumber": widget.business_whatsapp_number,
+                            "businessphoneNumber": widget.business_phone_number,
+                            "businessId": widget.business_Id,
                           });
                         } else if (boimetric_status == false) {
                           _settingsBox.clear();
